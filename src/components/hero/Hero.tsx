@@ -38,9 +38,9 @@ export default function Hero() {
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8">
             Specializing in <span className="text-white font-semibold">backend systems</span>,{" "}
             <span className="text-white font-semibold">distributed architectures</span>, and{" "}
-            <span className="text-white font-semibold">full-stack development</span>. Experienced in
+            <span className="text-white font-semibold">enterprise AI platforms</span>. Experienced in
             building Kafka-driven asynchronous reconciliation pipelines, resilient payment workflows, and
-            solving 1800+ algorithmic problems.
+            solving 2000+ algorithmic problems.
           </p>
 
           {/* Quick Stat Highlights */}
@@ -59,8 +59,8 @@ export default function Hero() {
                 <Code2 className="h-3.5 w-3.5 text-cyan-400" />
                 <span>DSA Solved</span>
               </div>
-              <div className="text-sm font-bold text-white mt-1">1800+</div>
-              <div className="text-[11px] text-slate-400">LeetCode 1877</div>
+              <div className="text-sm font-bold text-white mt-1">2000+</div>
+              <div className="text-[11px] text-slate-400">Knight (1877)</div>
             </div>
 
             <div className="p-3 rounded-lg bg-[#0e1118] border border-white/[0.08] shadow-sm">
@@ -69,7 +69,7 @@ export default function Hero() {
                 <span>Academics</span>
               </div>
               <div className="text-sm font-bold text-white mt-1">MNNIT Allahabad</div>
-              <div className="text-[11px] text-slate-400">CPI 8.12 / 10</div>
+              <div className="text-[11px] text-slate-400">CGPA 8.12 / 10.0</div>
             </div>
 
             <div className="p-3 rounded-lg bg-[#0e1118] border border-white/[0.08] shadow-sm">
@@ -77,8 +77,8 @@ export default function Hero() {
                 <ShieldCheck className="h-3.5 w-3.5 text-blue-400" />
                 <span>Core Stack</span>
               </div>
-              <div className="text-sm font-bold text-white mt-1">C++, Node, Kafka</div>
-              <div className="text-[11px] text-slate-400">React, Mongo</div>
+              <div className="text-sm font-bold text-white mt-1">Go, C++, Node, Kafka</div>
+              <div className="text-[11px] text-slate-400">React, Postgres, Mongo</div>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export default function Hero() {
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <span className="text-amber-400">LC</span>
-              <span>LeetCode (1877)</span>
+              <span>LeetCode (Knight 1877)</span>
             </a>
             <a
               href={profileData.links.codeforces}

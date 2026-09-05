@@ -119,7 +119,7 @@ export default function CommandPalette() {
       id: "skills",
       title: "Skills & Technical Stack",
       category: "Navigation",
-      description: "C++, JavaScript, React, Node, Kafka, MongoDB, Tools",
+      description: "Go, Python, C++, Node, Kafka, PostgreSQL, React",
       icon: <Layers className="h-4 w-4 text-indigo-400" />,
       action: () => {
         router.push("/#skills");
@@ -359,3 +359,4 @@ export default function CommandPalette() {
     </div>
   );
 }
+
