@@ -1,12 +1,26 @@
 # Pankaj Kumar Maurya — Interactive Engineering Portfolio
 
+> 🌐 **Live Website:** [https://terminal-portfolio-iota-rosy.vercel.app](https://terminal-portfolio-iota-rosy.vercel.app/)
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-emerald?style=for-the-badge&logo=vercel)](https://terminal-portfolio-iota-rosy.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-pankajmaurya1607-181717?style=for-the-badge&logo=github)](https://github.com/pankajmaurya1607)
+[![LeetCode](https://img.shields.io/badge/LeetCode-Knight%201877-FFA116?style=for-the-badge&logo=leetcode)](https://leetcode.com/u/pankajmaurya1607/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+
 A production-grade, developer-first personal portfolio website built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and an **interactive developer terminal** as its signature feature.
 
 Designed for serious software engineering recruitment: minimal, technically sophisticated, dark-first aesthetic, responsive across all devices, and featuring deep case studies with architecture flow diagrams.
 
 ---
 
-## 🚀 Key Features
+## 🌐 Live Deployment
+| Platform | Production URL | Notes |
+|---|---|---|
+| 🚀 **Vercel** | [https://terminal-portfolio-iota-rosy.vercel.app](https://terminal-portfolio-iota-rosy.vercel.app/) | Automated CI/CD, SSL, Edge Network |
+
+---
+
+## ✨ Key Features
 
 - **Interactive Signature Terminal**:
   - Full-featured command parser supporting `help`, `whoami`, `about`, `experience`, `projects`, `project <name>`, `skills`, `education`, `achievements`, `stats`, `contact`, `resume`, `github`, `linkedin`, `leetcode`, `codeforces`, `clear`.
@@ -15,21 +29,24 @@ Designed for serious software engineering recruitment: minimal, technically soph
   - Instant developer keyboard navigation across all sections, project case studies, resume, and external platforms.
 - **Centralized Data Layer (`src/data/`)**:
   - All content (profile, experience, projects, skills, education, achievements, terminal) is strictly separated from presentation logic.
-  - Adding new projects (e.g. rate limiters, parking lots, distributed consensus) takes minutes without touching UI code.
 - **Razorpay SDE Internship Showcase**:
-  - Centerpiece section featuring 4 deep engineering case studies:
-    1. Kafka-based bulk reconciliation re-architecture (Scrooge)
-    2. Merchant Dashboard refund processing workflow
-    3. UPI Montran gateway Mozart request data override debugging
-    4. Settlement service integration test coverage expansion
+  - Centerpiece section featuring 6 deep engineering case studies:
+    1. Kafka-based bulk reconciliation re-architecture (850K+ daily reconciliations, 13% IOPS reduction)
+    2. Redis-based distributed idempotency across 2 production clusters for HDFC payouts
+    3. Mozart V2 multi-service response aggregation unblocking UPI Montran & IDFC migration
+    4. Refund traceability and initiation source in Dashboard APIs with Splitz canary rollout
+    5. Settlements SLIT testing coverage expansion (0% to 80%)
+    6. Runtime settlement metadata validation eliminating 5xx service panics
 - **Detailed Project Case Studies**:
   - Dedicated routes:
+    - `/projects/payfast` (Fintech & Distributed Systems, Go, Kafka, Double-Entry Ledger)
+    - `/projects/vaultmind` (Enterprise AI & RAG Platform, FastAPI, PGVector, Celery)
     - `/projects/travel-agency` (AI Itinerary Generation, Appwrite & Gemini AI)
     - `/projects/buzz-talk` (Real-Time WebSockets, Socket.IO & MongoDB)
     - `/projects/task-manager` (Full-Stack Workflow Management)
-  - Visual SVG architecture diagrams showcasing system data flows.
+  - Visual interactive architecture diagrams showcasing system data flows.
 - **Problem Solving & Coding Metrics**:
-  - 1800+ DSA problems, LeetCode (1877 rating, Knight tier), Codeforces (1239 rating).
+  - 2000+ DSA problems, LeetCode Knight (Max Rating: 1877), Codeforces (1239 rating).
 - **Dedicated Resume Viewer (`/resume`)**:
   - Clean, recruiter-friendly printable view with one-click PDF generation (`window.print()`).
 - **Container Ready**:
@@ -44,11 +61,11 @@ Designed for serious software engineering recruitment: minimal, technically soph
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/) + Custom Brand SVGs
 - **Typography**: Inter (UI Text) & JetBrains Mono (Technical / Terminal Text)
-- **Deployment**: Docker, Docker Compose, OCI / VPS Ready
+- **Deployment**: Vercel, Docker, Docker Compose
 
 ---
 
-## 📁 Project Architecture
+## 🏗️ Project Architecture
 
 ```
 Terminal-Portfolio/
@@ -59,45 +76,38 @@ Terminal-Portfolio/
 │   │   ├── globals.css               # Dark theme tokens, custom scrollbars
 │   │   ├── projects/
 │   │   │   ├── page.tsx              # Projects directory hub
-│   │   │   ├── travel-agency/page.tsx # Travel Agency deep case study
-│   │   │   ├── buzz-talk/page.tsx     # Buzz Talk WebSocket case study
-│   │   │   └── task-manager/page.tsx  # Task Manager case study
+│   │   │   ├── payfast/page.tsx      # PayFast distributed payments case study
+│   │   │   ├── vaultmind/page.tsx    # VaultMind enterprise RAG case study
+│   │   │   ├── travel-agency/page.tsx# Travel Agency deep case study
+│   │   │   ├── buzz-talk/page.tsx    # Buzz Talk WebSocket case study
+│   │   │   └── task-manager/page.tsx # Task Manager case study
 │   │   └── resume/
 │   │       └── page.tsx              # Interactive resume viewer
 │   ├── components/
 │   │   ├── navbar/Navbar.tsx         # Sleek navigation with status & Cmd+K trigger
 │   │   ├── hero/Hero.tsx             # Engineering hero with verified badges
 │   │   ├── terminal/Terminal.tsx     # Signature interactive terminal window
-│   │   ├── command-palette/CommandPalette.tsx # Ctrl+K search modal
-│   │   ├── about/About.tsx           # Academic & engineering focus
-│   │   ├── experience/Experience.tsx # Razorpay 4 case studies
-│   │   ├── projects/Projects.tsx     # Featured project cards
-│   │   ├── engineering/Engineering.tsx # 4 Engineering pillars
-│   │   ├── skills/Skills.tsx         # Categorized skills
-│   │   ├── coding/Coding.tsx         # Problem solving stats (1800+ DSA)
-│   │   ├── education/Education.tsx   # MNNIT Allahabad & JNV Ayodhya
-│   │   ├── achievements/Achievements.tsx # HackOn Amazon, ML Cert, Avishkar
-│   │   ├── contact/Contact.tsx       # Contact CTA & clipboard email utility
-│   │   ├── diagrams/
-│   │   │   ├── BuzzTalkDiagram.tsx   # SVG WebSocket data flow diagram
-│   │   │   └── TravelAgencyDiagram.tsx # SVG AI workflow diagram
+│   │   ├── command-palette/          # Ctrl+K search modal
+│   │   ├── experience/               # Razorpay case studies
+│   │   ├── projects/                 # Featured project cards
+│   │   ├── engineering/              # 4 Engineering pillars
+│   │   ├── diagrams/                 # Interactive system architecture diagrams
+│   │   │   ├── PayFastDiagram.tsx
+│   │   │   ├── VaultMindDiagram.tsx
+│   │   │   ├── BuzzTalkDiagram.tsx
+│   │   │   └── TravelAgencyDiagram.tsx
 │   │   └── ui/Icons.tsx              # Crisp brand icons (GitHub, LinkedIn)
-│   ├── data/
-│   │   ├── profile.ts                # Bio, contacts, links
-│   │   ├── experience.ts             # Razorpay case studies
-│   │   ├── projects.ts               # Case study metadata & specifications
-│   │   ├── skills.ts                 # Technical competencies
-│   │   ├── coding.ts                 # DSA stats & platforms
-│   │   ├── education.ts              # Academic records
-│   │   ├── achievements.ts           # Verified honors
-│   │   └── terminal.ts               # Command execution engine
-│   └── lib/
-│       └── utils.ts                  # ClassName helper (cn)
-├── public/
-│   └── robots.txt
+│   └── data/
+│       ├── profile.ts                # Bio, contacts, links
+│       ├── experience.ts             # Razorpay 6 deliverables
+│       ├── projects.ts               # Case study metadata & specifications
+│       ├── skills.ts                 # Technical competencies (aligned with resume)
+│       ├── coding.ts                 # DSA stats (2000+ problems, LeetCode Knight)
+│       ├── education.ts              # Academic records (MNNIT Allahabad)
+│       └── terminal.ts               # Command execution engine
 ├── Dockerfile                        # Multi-stage production container
 ├── docker-compose.yml                # Docker compose configuration
-└── .env.example
+└── README.md
 ```
 
 ---
@@ -127,36 +137,20 @@ npm run start
 
 ---
 
-## 🐳 Docker Deployment
-
-To build and run in a production container on an OCI VM, VPS, or cloud server:
-
-```bash
-# Build and start container in detached mode
-docker compose up -d --build
-
-# View container logs
-docker compose logs -f
-```
-
-The portfolio will be available on port `3000`.
-
----
-
 ## ⌨️ Terminal Commands Reference
 
 | Command | Action |
 |---|---|
 | `help` | Lists all available commands |
 | `whoami` | Displays identity, role, and current status |
-| `experience` | Shows Razorpay SDE internship & 4 case studies |
+| `experience` | Shows Razorpay SDE internship & 6 deliverables |
 | `projects` | Lists all engineering projects |
-| `project <name>` | Deep dive into `buzz-talk`, `travel-agency`, or `task-manager` |
+| `project <name>` | Deep dive into `payfast`, `vaultmind`, `travel-agency`, `buzz-talk` |
 | `skills` | Displays categorized technical skills |
-| `stats` | Displays 1800+ DSA problems, LeetCode (1877), Codeforces (1239) |
-| `education` | Displays MNNIT Allahabad (CPI 8.12) and school credentials |
-| `achievements` | Displays Amazon HackOn, ML certification, Avishkar |
-| `contact` | Shows direct email and social profiles |
+| `stats` | Displays 2000+ DSA problems, LeetCode Knight (1877), Codeforces (1239) |
+| `education` | Displays MNNIT Allahabad (CGPA 8.12) and credentials |
+| `achievements` | Displays LeetCode Knight, Stanford Online ML Specialization |
+| `contact` | Shows direct phone, email, and social profiles |
 | `resume` | Navigates directly to `/resume` viewer |
 | `sudo hire pankaj` | Easter egg candidate authentication flow |
 | `clear` | Clears terminal screen |
@@ -165,5 +159,5 @@ The portfolio will be available on port `3000`.
 
 ## 📄 License & Ownership
 
-Designed and engineered for **Pankaj Kumar Maurya**.
+Designed and engineered for **Pankaj Kumar Maurya**.  
 All rights reserved.
