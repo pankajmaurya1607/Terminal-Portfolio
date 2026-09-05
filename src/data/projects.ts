@@ -60,13 +60,13 @@ export const projectsData: ProjectData[] = [
       architectureDiagramDescription:
         "React Checkout / Merchant UI → API Gateway (Sync Idempotency + Auth) → Apache Kafka Event Bus → [Fraud Service (Redis) + Ledger Service (Postgres Double-Entry) + Vault Service (AES-GCM) + Webhook Dispatcher]",
       features: [
-        "Distributed Idempotency Engine preventing double billing across network retries",
-        "PCI-DSS inspired Card Vault with AES-GCM tokenization (raw PAN never leaves vault)",
+        "Distributed Idempotency Engine preventing duplicate transactions across parallel retries",
+        "PCI-DSS inspired Card Vault with AES-GCM tokenization (raw PAN never touches gateway)",
         "Double-Entry Accounting Ledger maintaining mathematical debit/credit balance invariants",
-        "Redis sliding-window velocity checks detecting rapid card-testing fraud attacks",
+        "Redis sliding-window velocity checks detecting automated card-testing fraud patterns",
         "Asynchronous event streaming over Apache Kafka for decoupled ledger and webhook execution",
-        "Automated merchant settlement batching and recurring subscription engine",
-        "React 19 Merchant Admin Dashboard with live analytics, order filters, and refund controls",
+        "Automated merchant settlement batching and recurring subscription billing engine",
+        "React 19 Merchant Admin Dashboard with live telemetry, order filters, and refund management",
       ],
       engineeringDecisions: [
         {
@@ -109,16 +109,18 @@ export const projectsData: ProjectData[] = [
     featured: true,
     tag: "Enterprise AI & RAG Platform",
     techStack: [
-      "Python 3.12",
+      "Python",
       "FastAPI",
-      "PostgreSQL 16",
+      "PostgreSQL",
       "PGVector",
-      "Redis 7",
-      "Celery 5.4",
-      "FastEmbed (BGE)",
-      "Gemini 3.1 Flash Lite",
-      "React 19",
+      "Redis",
+      "Celery",
+      "LangChain",
+      "Gemini",
+      "Groq",
       "Docker",
+      "React",
+      "TypeScript",
     ],
     links: {
       github: "https://github.com/pankajmaurya1607/VaultMind",
@@ -126,19 +128,19 @@ export const projectsData: ProjectData[] = [
     },
     details: {
       overview:
-        "VaultMind solves enterprise data privacy in generative AI. It allows multi-department organizations (Finance, HR, Legal, Engineering) to query unstructured knowledge bases without confidential data leaking across corporate silos, backed by local ONNX vector embeddings and sub-50ms HNSW vector retrieval.",
+        "VaultMind solves enterprise data privacy in generative AI. It allows multi-department organizations to query unstructured knowledge bases without confidential data leaking across corporate silos, backed by local ONNX vector embeddings and sub-100ms HNSW vector retrieval.",
       problem:
         "Standard RAG chatbots lack department boundary awareness, allowing cross-silo data leaks via prompt manipulation. Furthermore, synchronous file parsing freezes HTTP servers, and commercial embedding APIs expose sensitive corporate documents to external clouds.",
       solution:
-        "Built a layered RAG platform in FastAPI where RBAC department filters are enforced deterministically at the PostgreSQL SQL query layer during cosine similarity search. Employs background Celery workers for document parsing and local FastEmbed ONNX embeddings for sub-millisecond, zero-cost vector indexing.",
+        "Built an enterprise knowledge RAG platform using FastAPI, PostgreSQL + PGVector, and Celery. Enforces department-level data isolation at the SQL query layer, processes 50+ pages/minute asynchronously via Celery + Redis, and implements multi-provider LLM failover across Gemini, Groq, and local models.",
       architectureType: "Layered Micro-Platform with Asynchronous Worker Ingestion",
       architectureDiagramDescription:
-        "Client (React 19 SPA) → Nginx Reverse Proxy (:80) → FastAPI (JWT Auth + RBAC Enforcer) → PostgreSQL 16 + PGVector (HNSW Cosine Search) + Redis / Celery Workers (Async File Parsing & FastEmbed ONNX)",
+        "Client (React SPA) → Nginx Reverse Proxy (:80) → FastAPI (JWT Auth + RBAC Enforcer) → PostgreSQL + PGVector (HNSW Cosine Search) + Redis / Celery Workers (Async File Parsing & FastEmbed ONNX)",
       features: [
-        "Deterministic SQL-level Role-Based Access Control (Admin, Manager, Employee) preventing prompt injection leaks",
-        "Sub-50ms vector retrieval with PostgreSQL 16 + PGVector using 384-dimensional HNSW indexing",
-        "Local ONNX FastEmbed (bge-small-en-v1.5) embeddings running on CPU with zero cloud API dependencies",
-        "Asynchronous document ingestion pipeline via Celery worker pool and Redis message broker",
+        "Sub-100ms vector-search latency for secure document retrieval and AI-powered chat",
+        "Asynchronous ingestion pipeline processing 50+ pages/min across PDF, DOCX, CSV, XLSX, Markdown, and TXT",
+        "Multi-provider LLM failover across Gemini, Groq, and local models for offline operation",
+        "Enforced RBAC and department data isolation with 0 RBAC leakage across 210+ automated tests",
         "Zero-friction Guest Quick-Try sandbox with automatic 10-minute TTL cleanup",
         "Multi-turn AI chat with grounded inline document citations and confidence scoring",
         "Prometheus real-time telemetry tracking vector search latency, token consumption, and worker health",
@@ -147,7 +149,7 @@ export const projectsData: ProjectData[] = [
         {
           decision: "SQL-Layered Department Scoping over LLM System Prompts",
           rationale:
-            "Enforced department scoping in the PostgreSQL WHERE clause during vector similarity search (WHERE d.department_id IN (:user_depts)), rendering cross-department data leakage mathematically impossible regardless of prompt injection attacks.",
+            "Enforced department scoping in the PostgreSQL WHERE clause during vector similarity search (WHERE d.department_id IN (:user_depts)), verified with 0 RBAC leakage across 210+ automated tests.",
         },
         {
           decision: "PostgreSQL + PGVector Unified Storage over Dedicated Vector DBs",
@@ -155,19 +157,19 @@ export const projectsData: ProjectData[] = [
             "Stored vectors, user authentication, and audit logs within a single ACID relational database, avoiding dual-store synchronization overhead and enabling single-query vector-relational joins.",
         },
         {
-          decision: "Local FastEmbed ONNX over Cloud Embedding APIs",
+          decision: "Multi-Provider Failover (Gemini, Groq, Local Models)",
           rationale:
-            "Leveraged ONNX Runtime with quantized BGE models locally on the server, eliminating external API network latency, slashing embedding costs to zero, and preserving confidential document privacy.",
+            "Architected automatic failover between cloud LLMs (Gemini, Groq) and local models, enabling offline operations without paid API dependencies.",
         },
         {
           decision: "Asynchronous Celery Worker Pool for File Extraction",
           rationale:
-            "Offloaded multi-page PDF/DOCX parsing, recursive chunking, and tensor generation from FastAPI's asynchronous event loop, ensuring sub-10ms API responsiveness during heavy uploads.",
+            "Offloaded multi-format parsing (PDF, DOCX, CSV, XLSX, MD, TXT), recursive chunking, and tensor generation, achieving sustained processing rates of 50+ pages/minute.",
         },
       ],
       challenges: [
-        "Optimizing HNSW index parameters (m and ef_search) to balance high-recall vector accuracy with rapid sub-second query latency.",
-        "Preventing memory bloat during concurrent multi-page PDF extractions in Celery worker processes.",
+        "Optimizing HNSW index parameters (m and ef_search) to achieve sub-100ms vector search latency with high recall.",
+        "Preventing memory bloat during concurrent multi-page document extractions across Celery worker pools.",
       ],
       lessonsLearned: [
         "Security in AI systems must be enforced at the data retrieval boundary rather than relying on model prompt compliance.",
@@ -189,8 +191,8 @@ export const projectsData: ProjectData[] = [
       "Tailwind CSS",
       "Appwrite",
       "Google Gemini API",
-      "Unsplash API",
       "Syncfusion",
+      "Unsplash API",
     ],
     links: {
       github: "https://github.com/pankajmaurya1607",
@@ -202,17 +204,16 @@ export const projectsData: ProjectData[] = [
       problem:
         "Traditional travel research requires toggling dozens of tabs across flight engines, travel blogs, maps, and review platforms, resulting in fragmented notes, inefficient schedules, and decision fatigue.",
       solution:
-        "Engineered an automated itinerary platform integrating Google's Gemini generative model with Appwrite's serverless database and auth layer, giving users structured day-by-day itineraries, visual cards, and administrative itinerary curation.",
+        "Developed an AI-powered travel platform for personalized itinerary generation, improving trip planning through preference-based recommendations, Appwrite secure authentication, and administrative itinerary curation.",
       architectureType: "Client-Serverless Hybrid with External AI Inference",
       architectureDiagramDescription:
-        "React Client (TypeScript + Tailwind) → Appwrite (Auth & Database) + Google Gemini AI (Dynamic Itinerary Engine) + Unsplash API (Curated Visuals)",
+        "React Client (TypeScript + Tailwind) → Appwrite (Auth & Database) + Google Gemini AI (Dynamic Itinerary Engine) + Syncfusion + Unsplash API (Curated Visuals)",
       features: [
-        "AI-Generated Travel Itineraries with structured daily schedules",
-        "Personalized budget and preference-tailored recommendations",
-        "Secure user authentication and profile management via Appwrite",
-        "Real-time database storage for saved trips and shared itineraries",
-        "Interactive administrative dashboard with Syncfusion charting",
-        "Dynamic high-resolution location imagery powered by Unsplash API",
+        "AI-Powered travel platform for personalized itinerary generation via preference-based recommendations",
+        "Secure authentication and persistent data management via Appwrite administrative dashboard",
+        "Integrated Gemini, Unsplash, and Syncfusion APIs for dynamic itineraries and travel visualizations",
+        "Structured day-by-day itineraries with interactive schedule cards",
+        "High-resolution location imagery powered by Unsplash API",
         "Fully responsive interface optimized for mobile travelers",
       ],
       engineeringDecisions: [

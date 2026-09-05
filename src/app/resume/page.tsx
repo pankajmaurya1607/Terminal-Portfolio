@@ -5,27 +5,25 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Printer,
-  FileText,
   Mail,
-  ExternalLink,
+  Phone,
   Briefcase,
   GraduationCap,
-  Award,
-  Code2,
+  FileText,
   Terminal,
+  Award,
 } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/Icons";
 import { profileData } from "@/data/profile";
 import { experienceData } from "@/data/experience";
+import { educationData } from "@/data/education";
 import { projectsData } from "@/data/projects";
 import { skillsData } from "@/data/skills";
-import { educationData } from "@/data/education";
-import { achievementsData } from "@/data/achievements";
-import { codingData } from "@/data/coding";
 
 export default function ResumePage() {
   const handlePrint = () => {
-    window.print();
+    if (typeof window !== "undefined") {
+      window.print();
+    }
   };
 
   return (
@@ -61,12 +59,17 @@ export default function ResumePage() {
                 {profileData.name}
               </h1>
               <div className="text-emerald-400 font-mono text-sm mt-1 print:text-emerald-700">
-                {profileData.role} • Backend • Distributed Systems • Full Stack
+                {profileData.role} • Backend • Distributed Systems • Enterprise AI
               </div>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 mt-4 print:text-slate-700">
+            <span className="flex items-center gap-1">
+              <Phone className="h-3 w-3 text-emerald-400 print:text-emerald-700" />
+              {profileData.phone}
+            </span>
+            <span>•</span>
             <span className="flex items-center gap-1">
               <Mail className="h-3 w-3 text-emerald-400 print:text-emerald-700" />
               {profileData.email}
@@ -78,7 +81,7 @@ export default function ResumePage() {
               rel="noopener noreferrer"
               className="hover:underline"
             >
-              linkedin.com/in/pankaj-maurya
+              LinkedIn
             </a>
             <span>•</span>
             <a
@@ -87,7 +90,7 @@ export default function ResumePage() {
               rel="noopener noreferrer"
               className="hover:underline"
             >
-              github.com/pankajmaurya1607
+              GitHub
             </a>
             <span>•</span>
             <a
@@ -96,45 +99,19 @@ export default function ResumePage() {
               rel="noopener noreferrer"
               className="hover:underline"
             >
-              leetcode.com/pankajmaurya1607 (1877)
+              LeetCode (Knight 1877)
+            </a>
+            <span>•</span>
+            <a
+              href={profileData.links.codeforces}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Codeforces
             </a>
           </div>
         </header>
-
-        {/* Work Experience */}
-        <section className="mb-8">
-          <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2 print:text-emerald-800">
-            <Briefcase className="h-3.5 w-3.5" />
-            <span>Professional Work Experience</span>
-          </h2>
-
-          <div className="space-y-6">
-            <div>
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                <div className="text-base font-bold text-white print:text-black">
-                  {experienceData.company} —{" "}
-                  <span className="text-slate-300 font-normal print:text-slate-700">
-                    {experienceData.role}
-                  </span>
-                </div>
-                <div className="text-xs font-mono text-slate-400 print:text-slate-600">
-                  {experienceData.period} | {experienceData.location}
-                </div>
-              </div>
-
-              <div className="mt-3 space-y-2.5 text-xs text-slate-300 print:text-slate-800 leading-relaxed">
-                {experienceData.caseStudies.map((cs) => (
-                  <div key={cs.id} className="pl-3 border-l border-emerald-500/30 print:border-black/30">
-                    <strong className="text-white print:text-black font-semibold">
-                      {cs.title}:
-                    </strong>{" "}
-                    {cs.solution}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Education */}
         <section className="mb-8">
@@ -165,6 +142,41 @@ export default function ResumePage() {
           </div>
         </section>
 
+        {/* Work Experience */}
+        <section className="mb-8">
+          <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2 print:text-emerald-800">
+            <Briefcase className="h-3.5 w-3.5" />
+            <span>Professional Work Experience</span>
+          </h2>
+
+          <div className="space-y-6">
+            <div>
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-3">
+                <div className="text-base font-bold text-white print:text-black">
+                  {experienceData.company} —{" "}
+                  <span className="text-slate-300 font-normal print:text-slate-700">
+                    {experienceData.role}
+                  </span>
+                </div>
+                <div className="text-xs font-mono text-slate-400 print:text-slate-600">
+                  {experienceData.period} | {experienceData.location}
+                </div>
+              </div>
+
+              <div className="space-y-2 text-xs text-slate-300 print:text-slate-800 leading-relaxed">
+                {experienceData.caseStudies.map((cs) => (
+                  <div key={cs.id} className="pl-3 border-l border-emerald-500/30 print:border-black/30">
+                    <strong className="text-white print:text-black font-semibold">
+                      {cs.title}:
+                    </strong>{" "}
+                    {cs.solution} <span className="text-emerald-400/90 print:text-emerald-800">({cs.impact})</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Projects */}
         <section className="mb-8">
           <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2 print:text-emerald-800">
@@ -186,6 +198,14 @@ export default function ResumePage() {
                     <a href={p.links.github} target="_blank" rel="noreferrer" className="hover:underline">
                       GitHub
                     </a>
+                    {p.links.liveDemo && (
+                      <>
+                        {" "}•{" "}
+                        <a href={p.links.liveDemo} target="_blank" rel="noreferrer" className="hover:underline text-emerald-400 print:text-emerald-700">
+                          Live
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
                 <p className="text-slate-300 print:text-slate-800 mt-1 leading-relaxed">
@@ -226,25 +246,17 @@ export default function ResumePage() {
         <section>
           <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2 print:text-emerald-800">
             <Award className="h-3.5 w-3.5" />
-            <span>Problem Solving & Achievements</span>
+            <span>Achievements</span>
           </h2>
 
-          <div className="space-y-1.5 text-xs text-slate-300 print:text-slate-800">
+          <div className="space-y-2 text-xs text-slate-300 print:text-slate-800">
             <p>
-              • <strong className="text-white print:text-black">1800+ DSA Problems Solved:</strong>{" "}
-              LeetCode (1877 rating, Knight tier), Codeforces (1239 rating).
+              • <strong className="text-white print:text-black">LeetCode Knight (Max Rating: 1877):</strong>{" "}
+              Solved 2000+ problems across LeetCode, Codeforces, and GeeksforGeeks.
             </p>
             <p>
               • <strong className="text-white print:text-black">Machine Learning Specialization:</strong>{" "}
-              DeepLearning.AI certification covering supervised, unsupervised & neural algorithms.
-            </p>
-            <p>
-              • <strong className="text-white print:text-black">HackOn With Amazon:</strong>{" "}
-              Selected participant in Amazon&apos;s national competitive engineering hackathon (Season 4).
-            </p>
-            <p>
-              • <strong className="text-white print:text-black">Leadership & Fest:</strong> Graduate of
-              Competitiveness Mindset Institute FLY Program; Softathalon participant at Avishkar MNNIT.
+              DeepLearning.AI & Stanford Online; completed coursework in supervised learning, deep learning, and reinforcement learning (April 2025).
             </p>
           </div>
         </section>

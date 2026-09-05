@@ -9,20 +9,20 @@ export interface AchievementItem {
 
 export const achievementsData: AchievementItem[] = [
   {
-    id: "dsa-1800",
-    title: "1800+ Algorithmic Problems Solved",
+    id: "leetcode-knight",
+    title: "LeetCode Knight (Max Rating: 1877)",
     category: "Competitive Programming",
     issuer: "LeetCode, Codeforces, GeeksforGeeks",
-    description: "Consistent problem solver with Knight rating on LeetCode (1877) and Pupil on Codeforces (1239).",
-    badge: "1800+ Solved",
+    description: "Solved 2000+ algorithmic problems across LeetCode, Codeforces, and GeeksforGeeks with Knight ranking on LeetCode.",
+    badge: "Knight (1877)",
   },
   {
     id: "ml-specialization",
     title: "Machine Learning Specialization",
     category: "Certifications & AI",
-    issuer: "DeepLearning.AI / Coursera",
-    description: "Rigorous certification covering supervised learning, neural networks, unsupervised learning, and recommender systems.",
-    badge: "Certified",
+    issuer: "DeepLearning.AI & Stanford Online",
+    description: "Completed comprehensive coursework in supervised learning, deep learning, and reinforcement learning (April 2025).",
+    badge: "Stanford Online",
   },
   {
     id: "fly-program",
@@ -38,7 +38,7 @@ export const achievementsData: AchievementItem[] = [
     category: "Hackathon",
     issuer: "Amazon",
     description: "Participated and built solutions under high-pressure national competitive engineering hackathon stages.",
-    badge: "National Participant",
+    badge: "Amazon",
   },
   {
     id: "softathalon",

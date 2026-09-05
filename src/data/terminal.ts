@@ -18,7 +18,7 @@ export const availableCommands: TerminalCommandDef[] = [
   { command: "about", description: "Learn about background, interests, and education" },
   { command: "experience", description: "View Razorpay SDE internship & engineering case studies" },
   { command: "projects", description: "List all engineering projects" },
-  { command: "project <name>", description: "View deep details for payfast | vaultmind | buzz-talk | travel-agency | task-manager" },
+  { command: "project <name>", description: "View deep details for payfast | vaultmind | travel-agency | buzz-talk | task-manager" },
   { command: "skills", description: "List technical stack by category" },
   { command: "stats", description: "Display DSA and competitive programming metrics" },
   { command: "education", description: "View academic background from MNNIT Allahabad" },
@@ -27,7 +27,7 @@ export const availableCommands: TerminalCommandDef[] = [
   { command: "resume", description: "Open / download official resume" },
   { command: "github", description: "Open Pankaj's GitHub profile" },
   { command: "linkedin", description: "Open Pankaj's LinkedIn profile" },
-  { command: "leetcode", description: "Open LeetCode profile (1877 rating)" },
+  { command: "leetcode", description: "Open LeetCode profile (Knight, 1877 rating)" },
   { command: "codeforces", description: "Open Codeforces profile (1239 rating)" },
   { command: "clear", description: "Clear the terminal screen" },
   { command: "sudo hire pankaj", description: "Authenticate candidate recruitment flow" },
@@ -73,7 +73,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "whoami") {
     return {
       type: "text",
-      content: `${profileData.name.toUpperCase()}\n${profileData.role}\nFocus: Backend • Distributed Systems • Full Stack\nEducation: ${profileData.statsSummary.college} (CPI: ${profileData.statsSummary.cpi})\nCurrent: ${profileData.statsSummary.experienceRole}\nDSA: ${profileData.statsSummary.dsaCount} Problems Solved`,
+      content: `${profileData.name.toUpperCase()}\n${profileData.role}\nFocus: Backend • Distributed Systems • Enterprise AI\nEducation: ${profileData.statsSummary.college} (CGPA: ${profileData.statsSummary.cpi})\nCurrent: ${profileData.statsSummary.experienceRole}\nDSA: ${profileData.statsSummary.dsaCount} Problems Solved`,
     };
   }
 
@@ -81,7 +81,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "about") {
     return {
       type: "text",
-      content: `ABOUT PANKAJ KUMAR MAURYA\n──────────────────────────────────────────────────\n${profileData.bio}\n\nCORE ENGINEERING FOCUS:\n  ➜ Backend Systems (APIs, async pipelines, resilient microservices in Go & Python)\n  ➜ Distributed Systems (Apache Kafka, message queues, horizontal scale, Redis)\n  ➜ Enterprise AI & RAG (PGVector, local FastEmbed ONNX, deterministic RBAC)\n  ➜ Full-Stack Development (React 19, Next.js, Express, MongoDB)\n  ➜ Problem Solving (1800+ algorithmic problems across LeetCode & Codeforces)\n\nEDUCATION: ${educationData[0].institution} | B.Tech CSE (2022-2026) | CPI: 8.12/10`,
+      content: `ABOUT PANKAJ KUMAR MAURYA\n──────────────────────────────────────────────────\n${profileData.bio}\n\nCORE ENGINEERING FOCUS:\n  ➜ Backend Systems (FastAPI, Go, Node.js, REST, gRPC, microservices)\n  ➜ Data & Distributed Systems (Kafka, Redis, PostgreSQL, Celery, Kubernetes, Docker)\n  ➜ AI/ML & RAG (PGVector, local FastEmbed ONNX, LangChain, Gemini, Groq)\n  ➜ Frontend & Full-Stack (React 19, TypeScript, Tailwind CSS)\n  ➜ Problem Solving (2000+ algorithmic problems, LeetCode Knight 1877)\n\nEDUCATION: ${educationData[0].institution} | B.Tech CSE (2022-2026) | CGPA: 8.12/10.0`,
     };
   }
 
@@ -119,7 +119,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
       } else {
         return {
           type: "error",
-          content: `Project '${args.slice(1).join(" ")}' not found. Available projects:\n  - payfast\n  - vaultmind\n  - buzz-talk\n  - travel-agency\n  - task-manager\n\nUsage: project payfast`,
+          content: `Project '${args.slice(1).join(" ")}' not found. Available projects:\n  - payfast\n  - vaultmind\n  - travel-agency\n  - buzz-talk\n  - task-manager\n\nUsage: project payfast`,
         };
       }
     }
@@ -195,7 +195,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "contact") {
     return {
       type: "text",
-      content: `GET IN TOUCH:\n──────────────────────────────────────────────────\nEmail    : ${profileData.email}\nGitHub   : ${profileData.links.github}\nLinkedIn : ${profileData.links.linkedin}\nLeetCode : ${profileData.links.leetcode}\n\n"Let's build something reliable and useful."`,
+      content: `GET IN TOUCH:\n──────────────────────────────────────────────────\nPhone    : ${profileData.phone}\nEmail    : ${profileData.email}\nGitHub   : ${profileData.links.github}\nLinkedIn : ${profileData.links.linkedin}\nLeetCode : ${profileData.links.leetcode}\n\n"Let's build something reliable and useful."`,
     };
   }
 
@@ -219,7 +219,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "leetcode") {
     return {
       type: "action",
-      content: `Opening LeetCode profile (1877 rating): ${profileData.links.leetcode}`,
+      content: `Opening LeetCode profile (Knight, 1877 rating): ${profileData.links.leetcode}`,
       actionUrl: profileData.links.leetcode,
     };
   }
@@ -244,7 +244,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (lower === "sudo hire pankaj" || lower === "sudo hire" || lower === "hire") {
     return {
       type: "text",
-      content: `[sudo] password for recruiter: ••••••••••••••••••••••••••\nAuthentication successful.\n\n==================================================\nCANDIDATE VERIFIED: PANKAJ KUMAR MAURYA\n==================================================\n✔ Backend Systems & Event-Driven Pipelines (Go, Kafka, Redis)\n✔ Enterprise AI & Vector Search (FastAPI, PGVector, Celery, RAG)\n✔ Distributed Systems & Double-Entry Accounting Ledgers\n✔ Full-Stack Development (React 19, Next.js, Node.js, TypeScript)\n✔ High Algorithmic Competence (1800+ Problems Solved)\n✔ SDE Intern @ Razorpay (Production Payment Systems)\n\nSTATUS: OPEN TO HIGH-IMPACT SOFTWARE ENGINEERING OPPORTUNITIES\n\nNext steps:\n  ✉ Email  : ${profileData.email}\n  🔗 LinkedIn: ${profileData.links.linkedin}\n  📄 Resume : /resume`,
+      content: `[sudo] password for recruiter: ••••••••••••••••••••••••••\nAuthentication successful.\n\n==================================================\nCANDIDATE VERIFIED: PANKAJ KUMAR MAURYA\n==================================================\n✔ Backend & Distributed Systems (FastAPI, Go, Kafka, Redis, PostgreSQL)\n✔ Enterprise AI & Vector Search (PGVector, Celery, LangChain, RAG, Local ONNX)\n✔ SDE Intern @ Razorpay (Kafka Bulk Reconciliation, Distributed Idempotency)\n✔ High Algorithmic Competence (2000+ Problems Solved • LeetCode Knight 1877)\n✔ B.Tech CSE @ MNNIT Allahabad (CGPA: 8.12 / 10.0)\n\nSTATUS: OPEN TO HIGH-IMPACT SOFTWARE ENGINEERING OPPORTUNITIES\n\nNext steps:\n  📞 Phone : ${profileData.phone}\n  ✉ Email  : ${profileData.email}\n  🔗 LinkedIn: ${profileData.links.linkedin}\n  📄 Resume : /resume`,
     };
   }
 

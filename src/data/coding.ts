@@ -21,32 +21,32 @@ export interface CodingData {
 }
 
 export const codingData: CodingData = {
-  headline: "1800+ Problems Solved",
+  headline: "2000+ Problems Solved",
   subheadline:
-    "Disciplined algorithmic practice across arrays, graphs, trees, dynamic programming, and systems thinking.",
+    "Disciplined algorithmic problem solving across LeetCode, Codeforces, and GeeksforGeeks.",
   metrics: [
     {
       label: "Total Algorithmic Problems",
-      value: "1800+",
-      detail: "Solved across LeetCode, Codeforces, GFG, and contest environments",
+      value: "2000+",
+      detail: "Solved across LeetCode, Codeforces, and GeeksforGeeks",
       highlight: true,
     },
     {
       label: "LeetCode Contest Rating",
-      value: "1877",
-      detail: "Consistent contest participation and knight-tier problem solving",
+      value: "Knight (1877)",
+      detail: "Knight-tier badge with max rating of 1877",
       highlight: true,
     },
     {
       label: "Codeforces Rating",
       value: "1239",
-      detail: "Pupil rank solving time-pressured mathematical and graph problems",
+      detail: "Pupil rank solving time-pressured competitive programming problems",
       highlight: false,
     },
     {
       label: "Academic Focus",
       value: "MNNIT CSE",
-      detail: "Rigorous theoretical CS coursework and systems foundations",
+      detail: "B.Tech Computer Science & Engineering (CGPA: 8.12 / 10.0)",
       highlight: false,
     },
   ],
@@ -56,14 +56,14 @@ export const codingData: CodingData = {
       handle: "pankajmaurya1607",
       url: "https://leetcode.com/u/pankajmaurya1607/",
       description: "Data structures, algorithms, and weekly contest challenges",
-      statBadge: "Rating: 1877",
+      statBadge: "Knight • Rating: 1877",
     },
     {
       name: "Codeforces",
       handle: "pankajmaurya1607",
       url: "https://codeforces.com/profile/pankajmaurya1607",
       description: "Competitive programming contests, math, and greedy strategies",
-      statBadge: "Rating: 1239",
+      statBadge: "Pupil • Rating: 1239",
     },
     {
       name: "GeeksforGeeks",

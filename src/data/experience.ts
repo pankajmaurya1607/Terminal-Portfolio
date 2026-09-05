@@ -21,10 +21,10 @@ export interface ExperienceData {
 export const experienceData: ExperienceData = {
   company: "Razorpay",
   role: "Software Development Engineer Intern",
-  period: "January 2026 — June 2026",
-  location: "Bangalore, India",
+  period: "January 2026 – June 2026",
+  location: "Bengaluru, India",
   overview:
-    "Engineered core payment infrastructure and financial services. Worked across asynchronous reconciliation engines, merchant refund processing, payment gateway debugging, and automated settlement testing.",
+    "Engineered core payment infrastructure and financial services handling mission-critical throughput, asynchronous event-driven workflows, distributed idempotency, and high-reliability settlement pipelines.",
   caseStudies: [
     {
       id: "kafka-reconciliation",
@@ -32,47 +32,77 @@ export const experienceData: ExperienceData = {
       title: "Kafka-Based Bulk Reconciliation Re-Architecture",
       tag: "Distributed Systems & Event-Driven Pipelines",
       problem:
-        "Synchronous API-based processing for Scrooge bulk reconciliation faced high latency and bottlenecked throughput during peak transactional loads.",
+        "Synchronous HTTP processing for Scrooge bulk reconciliation created latency bottlenecks, high peak database load, and tight coupling during peak transactional hours.",
       solution:
-        "Designed and implemented the Scrooge bulk reconciliation re-architecture, transitioning processing pipelines from synchronous HTTP endpoints toward Kafka-driven asynchronous event streaming for resilient horizontal scalability.",
-      techStack: ["Apache Kafka", "Distributed Systems", "Event-Driven Architecture", "Scalability", "Backend Microservices"],
-      impact: "Decoupled batch ingestion from processing workers, eliminating API timeouts during peak bulk transaction windows.",
+        "Re-architected Scrooge bulk reconciliation from synchronous HTTP to a Kafka-based asynchronous workflow, enabling horizontally scalable Kubernetes workers and complete fault isolation.",
+      techStack: ["Apache Kafka", "Kubernetes", "Distributed Systems", "PostgreSQL", "Go / Node.js"],
+      impact:
+        "Processed 850K+ reconciliations/day and reduced peak database IOPS by 13% while eliminating API timeouts during peak windows.",
     },
     {
-      id: "merchant-refund-flow",
+      id: "redis-distributed-idempotency",
       number: "02",
-      title: "Merchant Refund Workflow",
-      tag: "Payment Lifecycle & Dashboard Services",
+      title: "Redis-Based Distributed Idempotency Across Clusters",
+      tag: "Idempotency & Distributed State Coordination",
       problem:
-        "Merchants required a robust, idempotent workflow to initiate and track multi-status refunds directly through the Merchant Dashboard without manual intervention.",
+        "Multi-cluster payouts risked duplicate executions during scheduled processing windows without synchronized state coordination across cluster boundaries.",
       solution:
-        "Implemented backend services and state validation logic supporting merchant-initiated refund processing via the Merchant Dashboard with strict transaction boundaries and audit trails.",
-      techStack: ["Node.js / Go", "REST APIs", "Payment Lifecycles", "Idempotency", "Database Transactions"],
-      impact: "Streamlined merchant refund turnaround time and prevented duplicate refund triggers.",
+        "Engineered Redis-based distributed idempotency across 2 production clusters, coordinating next-run timestamps to ensure exactly one run per scheduled slot.",
+      techStack: ["Redis", "Distributed Locking", "Timestamp Coordination", "Payment Payouts"],
+      impact:
+        "Prevented duplicate HDFC payout executions across production clusters and guaranteed strict single-execution slot semantics.",
     },
     {
-      id: "upi-montran-gateway",
+      id: "mozart-v2-refund-integrity",
       number: "03",
-      title: "UPI Montran Gateway Request Overrides",
-      tag: "Gateway Integration & Reliability",
+      title: "Mozart V2 Multi-Service Response Aggregation",
+      tag: "Data Integrity & Payment Gateway Migration",
       problem:
-        "Intermittent transaction failures in the UPI Montran gateway caused by Mozart request data override anomalies during high-concurrency payment routing.",
+        "A production data-integrity anomaly in Mozart V2 refund flows caused response overwrites during multi-service response aggregation, blocking bank integrations.",
       solution:
-        "Investigated and resolved Mozart request data override behavior affecting the UPI Montran gateway, ensuring strict payload immutability and payload schema integrity across transit hops.",
-      techStack: ["UPI Protocol", "Payment Gateways", "Distributed Debugging", "Payload Validation"],
-      impact: "Restored deterministic gateway request routing and eliminated edge-case transaction drops.",
+        "Redesigned multi-service response aggregation logic to enforce strict payload immutability, eliminating response overwrite hazards.",
+      techStack: ["Mozart V2", "UPI Protocol", "Response Aggregation", "Data Integrity"],
+      impact:
+        "Eliminated response overwrite and unblocked UPI Montran onboarding and IDFC merchant migration.",
     },
     {
-      id: "settlement-service",
+      id: "refund-traceability-audit",
       number: "04",
-      title: "Settlement Service Integration Testing",
-      tag: "Financial Reliability & Testing",
+      title: "Refund Traceability & Dashboard Initiation Source",
+      tag: "API Architecture & Controlled Rollout",
       problem:
-        "Complex multi-account fund movement rules in the settlement service risked regression errors during continuous deployment cycles.",
+        "Dashboard refund events lacked granular initiation origin context, complicating financial traceability and dispute audits.",
       solution:
-        "Significantly expanded and modernized integration-test coverage for the settlement service, creating deterministic mock harnesses for upstream clearing entities and edge-case financial ledger states.",
-      techStack: ["Integration Testing", "Test Automation", "Financial Ledgers", "CI/CD Reliability"],
-      impact: "Reduced regression risks and ensured absolute consistency for critical merchant payout schedules.",
+        "Introduced initiation_source in Dashboard APIs with backward-compatible schema changes and managed canary deployment via Splitz feature flags.",
+      techStack: ["REST APIs", "Backward Compatibility", "Splitz Feature Flags", "Audit Logging"],
+      impact:
+        "Substantially improved refund traceability and auditability across all merchant-facing dashboard refund actions.",
+    },
+    {
+      id: "settlements-slit-coverage",
+      number: "05",
+      title: "Settlements SLIT Test Coverage Expansion (0% to 80%)",
+      tag: "Quality Assurance & Regression Elimination",
+      problem:
+        "Complex financial settlement flows lacked comprehensive end-to-end integration test coverage, posing regression risks during production releases.",
+      solution:
+        "Constructed automated Service-Level Integration Testing (SLIT) suites simulating full settlement lifecycles and edge-case financial ledgers.",
+      techStack: ["Integration Testing (SLIT)", "Automated Test Suites", "Payment Settlements", "CI/CD"],
+      impact:
+        "Increased Settlements SLIT coverage from 0% to 80%, providing robust regression defense for critical payout workflows.",
+    },
+    {
+      id: "settlement-metadata-validation",
+      number: "06",
+      title: "Runtime Metadata Validation & Fault Hardening",
+      tag: "Production Reliability & Fault Tolerance",
+      problem:
+        "Malformed or unexpected settlement metadata payloads occasionally triggered unhandled service panics and unrecoverable 5xx HTTP errors.",
+      solution:
+        "Implemented strict runtime schema validation for incoming settlement metadata, intercepting malformed payloads before execution.",
+      techStack: ["Runtime Schema Validation", "Error Handling", "Pydantic / Custom Parsers", "Reliability"],
+      impact:
+        "Eliminated service panics and converted unrecoverable 5xx server failures into deterministic 4xx client validation errors.",
     },
   ],
 };
