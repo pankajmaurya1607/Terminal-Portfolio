@@ -28,6 +28,154 @@ export interface ProjectData {
 
 export const projectsData: ProjectData[] = [
   {
+    slug: "payfast",
+    title: "PayFast",
+    subtitle: "Enterprise Payment Processor built with Event-Driven Microservices",
+    description:
+      "A production-grade, distributed payment processing engine built with Go, Apache Kafka, PostgreSQL, and Redis. Implements card vault tokenization, distributed idempotency keys, real-time sliding-window velocity fraud detection, and immutable double-entry accounting ledgers.",
+    featured: true,
+    tag: "Fintech & Distributed Systems",
+    techStack: [
+      "Go",
+      "Apache Kafka",
+      "PostgreSQL 16",
+      "Redis 7",
+      "Docker",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
+    links: {
+      github: "https://github.com/pankajmaurya1607/PayFast",
+      liveDemo: "https://payfast-payment-app.duckdns.org",
+    },
+    details: {
+      overview:
+        "PayFast is an enterprise payment processing pipeline engineered to handle financial transactions with mathematical accuracy, high fault tolerance, and zero double billing. It decouples high-throughput checkout ingress from asynchronous post-transaction workloads via Apache Kafka, providing audit-compliant double-entry accounting and an administrative merchant dashboard.",
+      problem:
+        "Standard CRUD architectures fail in payment systems: network timeouts cause duplicate customer charges, unencrypted PANs violate PCI-DSS regulations, race conditions corrupt account balances, and synchronous fraud checks degrade checkout latency.",
+      solution:
+        "Engineered an event-driven microservices architecture using Go and Apache Kafka. Integrated distributed idempotency keys at the API Gateway, an isolated PCI-DSS Card Vault for AES-GCM tokenization, a Redis sliding-window fraud velocity engine, and an append-only double-entry bookkeeping ledger in PostgreSQL.",
+      architectureType: "Event-Driven Asynchronous Microservices Architecture",
+      architectureDiagramDescription:
+        "React Checkout / Merchant UI → API Gateway (Sync Idempotency + Auth) → Apache Kafka Event Bus → [Fraud Service (Redis) + Ledger Service (Postgres Double-Entry) + Vault Service (AES-GCM) + Webhook Dispatcher]",
+      features: [
+        "Distributed Idempotency Engine preventing double billing across network retries",
+        "PCI-DSS inspired Card Vault with AES-GCM tokenization (raw PAN never leaves vault)",
+        "Double-Entry Accounting Ledger maintaining mathematical debit/credit balance invariants",
+        "Redis sliding-window velocity checks detecting rapid card-testing fraud attacks",
+        "Asynchronous event streaming over Apache Kafka for decoupled ledger and webhook execution",
+        "Automated merchant settlement batching and recurring subscription engine",
+        "React 19 Merchant Admin Dashboard with live analytics, order filters, and refund controls",
+      ],
+      engineeringDecisions: [
+        {
+          decision: "Double-Entry Bookkeeping Invariant (Sum of Debits - Credits = 0)",
+          rationale:
+            "Replaced single-column balance updates with append-only ledger journals. Every transaction records matching debit and credit entries, guaranteeing mathematically auditable fund tracking and zero balance corruption.",
+        },
+        {
+          decision: "Database-Level Idempotency Keys with Unique Constraints",
+          rationale:
+            "Bound client-generated Idempotency-Keys to PostgreSQL unique constraints (merchant_id, idempotency_key), immediately halting duplicate parallel requests and returning cached receipts for retries.",
+        },
+        {
+          decision: "Apache Kafka for Decoupled Post-Checkout Ingress",
+          rationale:
+            "Isolated checkout response latency from downstream accounting and webhook dispatches, allowing the gateway to acknowledge transactions in milliseconds while consumers process heavy side-effects asynchronously.",
+        },
+        {
+          decision: "Isolated AES-GCM Card Vault Subnet",
+          rationale:
+            "Restricted raw card handling to a single standalone microservice, issuing opaque UUID tokens (tok_xxxx) to ensure merchant databases and gateways never store unencrypted PANs.",
+        },
+      ],
+      challenges: [
+        "Handling network timeouts during distributed bank authorization without leaving transactions in dangling states.",
+        "Ensuring exactly-once semantics across Kafka consumer groups during high-volume consumer rebalances.",
+      ],
+      lessonsLearned: [
+        "Financial systems must prioritize strong consistency over eventual consistency for core money movements.",
+        "Append-only event models simplify retrospective auditability and dispute reconciliation.",
+      ],
+    },
+  },
+  {
+    slug: "vaultmind",
+    title: "VaultMind",
+    subtitle: "Enterprise Knowledge Assistant & RAG Platform with Granular RBAC",
+    description:
+      "A production-grade, enterprise Retrieval-Augmented Generation (RAG) platform that securely indexes organizational documents, isolates department data with strict SQL-level Role-Based Access Control (RBAC), performs real-time semantic vector search with PostgreSQL + PGVector, and orchestrates asynchronous ingestion pipelines with Celery and Redis.",
+    featured: true,
+    tag: "Enterprise AI & RAG Platform",
+    techStack: [
+      "Python 3.12",
+      "FastAPI",
+      "PostgreSQL 16",
+      "PGVector",
+      "Redis 7",
+      "Celery 5.4",
+      "FastEmbed (BGE)",
+      "Gemini 3.1 Flash Lite",
+      "React 19",
+      "Docker",
+    ],
+    links: {
+      github: "https://github.com/pankajmaurya1607/VaultMind",
+      liveDemo: "https://vaultmind-ai.duckdns.org",
+    },
+    details: {
+      overview:
+        "VaultMind solves enterprise data privacy in generative AI. It allows multi-department organizations (Finance, HR, Legal, Engineering) to query unstructured knowledge bases without confidential data leaking across corporate silos, backed by local ONNX vector embeddings and sub-50ms HNSW vector retrieval.",
+      problem:
+        "Standard RAG chatbots lack department boundary awareness, allowing cross-silo data leaks via prompt manipulation. Furthermore, synchronous file parsing freezes HTTP servers, and commercial embedding APIs expose sensitive corporate documents to external clouds.",
+      solution:
+        "Built a layered RAG platform in FastAPI where RBAC department filters are enforced deterministically at the PostgreSQL SQL query layer during cosine similarity search. Employs background Celery workers for document parsing and local FastEmbed ONNX embeddings for sub-millisecond, zero-cost vector indexing.",
+      architectureType: "Layered Micro-Platform with Asynchronous Worker Ingestion",
+      architectureDiagramDescription:
+        "Client (React 19 SPA) → Nginx Reverse Proxy (:80) → FastAPI (JWT Auth + RBAC Enforcer) → PostgreSQL 16 + PGVector (HNSW Cosine Search) + Redis / Celery Workers (Async File Parsing & FastEmbed ONNX)",
+      features: [
+        "Deterministic SQL-level Role-Based Access Control (Admin, Manager, Employee) preventing prompt injection leaks",
+        "Sub-50ms vector retrieval with PostgreSQL 16 + PGVector using 384-dimensional HNSW indexing",
+        "Local ONNX FastEmbed (bge-small-en-v1.5) embeddings running on CPU with zero cloud API dependencies",
+        "Asynchronous document ingestion pipeline via Celery worker pool and Redis message broker",
+        "Zero-friction Guest Quick-Try sandbox with automatic 10-minute TTL cleanup",
+        "Multi-turn AI chat with grounded inline document citations and confidence scoring",
+        "Prometheus real-time telemetry tracking vector search latency, token consumption, and worker health",
+      ],
+      engineeringDecisions: [
+        {
+          decision: "SQL-Layered Department Scoping over LLM System Prompts",
+          rationale:
+            "Enforced department scoping in the PostgreSQL WHERE clause during vector similarity search (WHERE d.department_id IN (:user_depts)), rendering cross-department data leakage mathematically impossible regardless of prompt injection attacks.",
+        },
+        {
+          decision: "PostgreSQL + PGVector Unified Storage over Dedicated Vector DBs",
+          rationale:
+            "Stored vectors, user authentication, and audit logs within a single ACID relational database, avoiding dual-store synchronization overhead and enabling single-query vector-relational joins.",
+        },
+        {
+          decision: "Local FastEmbed ONNX over Cloud Embedding APIs",
+          rationale:
+            "Leveraged ONNX Runtime with quantized BGE models locally on the server, eliminating external API network latency, slashing embedding costs to zero, and preserving confidential document privacy.",
+        },
+        {
+          decision: "Asynchronous Celery Worker Pool for File Extraction",
+          rationale:
+            "Offloaded multi-page PDF/DOCX parsing, recursive chunking, and tensor generation from FastAPI's asynchronous event loop, ensuring sub-10ms API responsiveness during heavy uploads.",
+        },
+      ],
+      challenges: [
+        "Optimizing HNSW index parameters (m and ef_search) to balance high-recall vector accuracy with rapid sub-second query latency.",
+        "Preventing memory bloat during concurrent multi-page PDF extractions in Celery worker processes.",
+      ],
+      lessonsLearned: [
+        "Security in AI systems must be enforced at the data retrieval boundary rather than relying on model prompt compliance.",
+        "Decoupling embedding generation into background queues prevents CPU throttling on web worker processes.",
+      ],
+    },
+  },
+  {
     slug: "travel-agency",
     title: "Travel Agency",
     subtitle: "AI-Powered Travel Planning & Itinerary Generation Platform",
@@ -57,7 +205,7 @@ export const projectsData: ProjectData[] = [
         "Engineered an automated itinerary platform integrating Google's Gemini generative model with Appwrite's serverless database and auth layer, giving users structured day-by-day itineraries, visual cards, and administrative itinerary curation.",
       architectureType: "Client-Serverless Hybrid with External AI Inference",
       architectureDiagramDescription:
-        "React Client (TypeScript + Tailwind) ➔ Appwrite (Auth & Database) + Google Gemini AI (Dynamic Itinerary Engine) + Unsplash API (Curated Visuals)",
+        "React Client (TypeScript + Tailwind) → Appwrite (Auth & Database) + Google Gemini AI (Dynamic Itinerary Engine) + Unsplash API (Curated Visuals)",
       features: [
         "AI-Generated Travel Itineraries with structured daily schedules",
         "Personalized budget and preference-tailored recommendations",
@@ -123,7 +271,7 @@ export const projectsData: ProjectData[] = [
         "Implemented full-duplex WebSocket communication using Socket.IO layered on an Express.js backend, maintaining active connection registries, broadcast message delivery, and persistent MongoDB chat storage.",
       architectureType: "Full-Duplex WebSocket Client-Server Architecture",
       architectureDiagramDescription:
-        "Client Browser (React + Socket.IO Client) ⇄ WebSocket Connection ⇄ Node.js / Express Server (Socket.IO Hub + JWT Auth) ⇄ MongoDB (Message Archive & User Registry)",
+        "Client Browser (React + Socket.IO Client) ↔ WebSocket Connection ↔ Node.js / Express Server (Socket.IO Hub + JWT Auth) ↔ MongoDB (Message Archive & User Registry)",
       features: [
         "Sub-100ms real-time text messaging via persistent WebSockets",
         "Secure user authentication with salted hashing and JWT tokens",
@@ -188,7 +336,7 @@ export const projectsData: ProjectData[] = [
         "Engineered a secure full-stack application featuring OAuth / email authentication, MongoDB document relationships, task status tracking, and categorized filtering.",
       architectureType: "Next.js Frontend with RESTful Micro-Backend",
       architectureDiagramDescription:
-        "Next.js Frontend ➔ RESTful Express API ➔ MongoDB Cluster (Tasks, Categories, User Auth)",
+        "Next.js Frontend → RESTful Express API → MongoDB Cluster (Tasks, Categories, User Auth)",
       features: [
         "Full task CRUD operations (Create, Read, Update, Delete)",
         "Configurable task categories and priority levels",

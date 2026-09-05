@@ -22,7 +22,7 @@ export const engineeringPillars: EngineeringPillar[] = [
       "Authentication & Security",
     ],
     practicalApplication:
-      "Implemented merchant refund flows and settlement service test harnesses during SDE internship at Razorpay.",
+      "Architected PayFast's double-entry accounting engine & idempotency keys in Go, and implemented merchant refund flows at Razorpay.",
   },
   {
     number: "02",
@@ -38,23 +38,23 @@ export const engineeringPillars: EngineeringPillar[] = [
       "Decoupled Microservices",
     ],
     practicalApplication:
-      "Engineered the Scrooge bulk reconciliation re-architecture at Razorpay, migrating from synchronous API bottlenecks to Kafka event queues.",
+      "Engineered PayFast's Kafka event-driven microservices pipeline, VaultMind's Celery worker pool, and Scrooge bulk reconciliation at Razorpay.",
   },
   {
     number: "03",
-    title: "Full-Stack Development",
-    subtitle: "React, Node.js, Next.js, MongoDB",
+    title: "Full-Stack & AI Systems",
+    subtitle: "React 19, FastAPI, PGVector, Node.js",
     description:
-      "Building unified end-to-end applications where intuitive, high-performance client interfaces seamlessly connect with performant backend pipelines.",
+      "Building unified end-to-end applications where intuitive, high-performance client interfaces seamlessly connect with performant backend pipelines and vector intelligence.",
     coreConcepts: [
       "Modern React / Next.js Ecosystems",
-      "State Management & Optimistic UI",
+      "Retrieval-Augmented Generation (RAG)",
       "WebSockets & Real-Time Sync",
       "Tailwind CSS & Design Systems",
       "End-to-End Type Safety",
     ],
     practicalApplication:
-      "Built Buzz Talk with real-time Socket.IO synchronization and Travel Agency with Google Gemini AI integration.",
+      "Built VaultMind's enterprise RAG platform with PGVector and RBAC, PayFast's merchant dashboard, and Buzz Talk real-time chat.",
   },
   {
     number: "04",

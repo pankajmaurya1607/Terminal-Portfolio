@@ -18,7 +18,7 @@ export const availableCommands: TerminalCommandDef[] = [
   { command: "about", description: "Learn about background, interests, and education" },
   { command: "experience", description: "View Razorpay SDE internship & engineering case studies" },
   { command: "projects", description: "List all engineering projects" },
-  { command: "project <name>", description: "View deep details for buzz-talk | travel-agency | task-manager" },
+  { command: "project <name>", description: "View deep details for payfast | vaultmind | buzz-talk | travel-agency | task-manager" },
   { command: "skills", description: "List technical stack by category" },
   { command: "stats", description: "Display DSA and competitive programming metrics" },
   { command: "education", description: "View academic background from MNNIT Allahabad" },
@@ -81,7 +81,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "about") {
     return {
       type: "text",
-      content: `ABOUT PANKAJ KUMAR MAURYA\n──────────────────────────────────────────────────\n${profileData.bio}\n\nCORE ENGINEERING FOCUS:\n  → Backend Systems (APIs, async pipelines, resilient microservices)\n  → Distributed Systems (Apache Kafka, message queues, horizontal scale)\n  → Full-Stack Development (React, Next.js, Express, MongoDB)\n  → Problem Solving (1800+ algorithmic problems across LeetCode & Codeforces)\n\nEDUCATION: ${educationData[0].institution} | B.Tech CSE (2022-2026) | CPI: 8.12/10`,
+      content: `ABOUT PANKAJ KUMAR MAURYA\n──────────────────────────────────────────────────\n${profileData.bio}\n\nCORE ENGINEERING FOCUS:\n  ➜ Backend Systems (APIs, async pipelines, resilient microservices in Go & Python)\n  ➜ Distributed Systems (Apache Kafka, message queues, horizontal scale, Redis)\n  ➜ Enterprise AI & RAG (PGVector, local FastEmbed ONNX, deterministic RBAC)\n  ➜ Full-Stack Development (React 19, Next.js, Express, MongoDB)\n  ➜ Problem Solving (1800+ algorithmic problems across LeetCode & Codeforces)\n\nEDUCATION: ${educationData[0].institution} | B.Tech CSE (2022-2026) | CPI: 8.12/10`,
     };
   }
 
@@ -89,14 +89,14 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (baseCmd === "experience") {
     const caseStudiesSummary = experienceData.caseStudies
       .map(
-        (c) =>
-          `  [${c.number}] ${c.title}\n      Problem: ${c.problem}\n      Solution: ${c.solution}\n      Tech: ${c.techStack.join(", ")}`
+        (cs) =>
+          `  • [${cs.tag}] ${cs.title}\n    Problem: ${cs.problem}\n    Solution: ${cs.solution}\n    Impact: ${cs.impact}\n    Stack: ${cs.techStack.join(" • ")}`
       )
       .join("\n\n");
 
     return {
       type: "text",
-      content: `EXPERIENCE\n──────────────────────────────────────────────────\nCompany : ${experienceData.company}\nRole    : ${experienceData.role}\nPeriod  : ${experienceData.period}\nLocation: ${experienceData.location}\n\nOverview:\n${experienceData.overview}\n\nENGINEERING CASE STUDIES:\n\n${caseStudiesSummary}`,
+      content: `WORK EXPERIENCE: ${experienceData.role.toUpperCase()} @ ${experienceData.company.toUpperCase()}\nPeriod: ${experienceData.period} | Location: ${experienceData.location}\n\nOverview:\n${experienceData.overview}\n\nKEY ENGINEERING DELIVERABLES:\n${caseStudiesSummary}`,
     };
   }
 
@@ -114,12 +114,12 @@ export function executeCommand(rawInput: string): TerminalResponse {
       if (proj) {
         return {
           type: "text",
-          content: `PROJECT: ${proj.title.toUpperCase()}\nSubtitle: ${proj.subtitle}\n──────────────────────────────────────────────────\nStack: ${proj.techStack.join(" • ")}\n\nOVERVIEW:\n${proj.details.overview}\n\nARCHITECTURE:\n${proj.details.architectureDiagramDescription}\n\nKEY FEATURES:\n${proj.details.features.map((f) => `  ✓ ${f}`).join("\n")}\n\nLinks:\n  GitHub: ${proj.links.github}${proj.links.liveDemo ? `\n  Live Demo: ${proj.links.liveDemo}` : ""}\n  Case Study: /projects/${proj.slug}`,
+          content: `PROJECT: ${proj.title.toUpperCase()}\nSubtitle: ${proj.subtitle}\n──────────────────────────────────────────────────\nStack: ${proj.techStack.join(" • ")}\n\nOVERVIEW:\n${proj.details.overview}\n\nARCHITECTURE:\n${proj.details.architectureDiagramDescription}\n\nKEY FEATURES:\n${proj.details.features.map((f) => `  ✔ ${f}`).join("\n")}\n\nLinks:\n  GitHub: ${proj.links.github}${proj.links.liveDemo ? `\n  Live Demo: ${proj.links.liveDemo}` : ""}\n  Case Study: /projects/${proj.slug}`,
         };
       } else {
         return {
           type: "error",
-          content: `Project '${args.slice(1).join(" ")}' not found. Available projects:\n  - buzz-talk\n  - travel-agency\n  - task-manager\n\nUsage: project buzz-talk`,
+          content: `Project '${args.slice(1).join(" ")}' not found. Available projects:\n  - payfast\n  - vaultmind\n  - buzz-talk\n  - travel-agency\n  - task-manager\n\nUsage: project payfast`,
         };
       }
     }
@@ -134,7 +134,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
 
     return {
       type: "text",
-      content: `FEATURED PROJECTS:\n──────────────────────────────────────────────────\n\n${list}\n\nTip: Type 'project <name>' (e.g. 'project buzz-talk') for an in-depth breakdown.`,
+      content: `FEATURED PROJECTS:\n──────────────────────────────────────────────────\n\n${list}\n\nTip: Type 'project <name>' (e.g. 'project payfast' or 'project vaultmind') for an in-depth breakdown.`,
     };
   }
 
@@ -244,7 +244,7 @@ export function executeCommand(rawInput: string): TerminalResponse {
   if (lower === "sudo hire pankaj" || lower === "sudo hire" || lower === "hire") {
     return {
       type: "text",
-      content: `[sudo] password for recruiter: ••••••••••••••••••••••••\nAuthentication successful.\n\n==================================================\nCANDIDATE VERIFIED: PANKAJ KUMAR MAURYA\n==================================================\n✓ Backend Systems & Asynchronous Pipelines\n✓ Distributed Systems (Kafka, Event Streams)\n✓ Full-Stack Development (React, Next.js, Node.js)\n✓ High Algorithmic Competence (1800+ Problems Solved)\n✓ SDE Intern @ Razorpay (Production Payment Systems)\n\nSTATUS: OPEN TO HIGH-IMPACT SOFTWARE ENGINEERING OPPORTUNITIES\n\nNext steps:\n  → Email  : ${profileData.email}\n  → LinkedIn: ${profileData.links.linkedin}\n  → Resume : /resume`,
+      content: `[sudo] password for recruiter: ••••••••••••••••••••••••••\nAuthentication successful.\n\n==================================================\nCANDIDATE VERIFIED: PANKAJ KUMAR MAURYA\n==================================================\n✔ Backend Systems & Event-Driven Pipelines (Go, Kafka, Redis)\n✔ Enterprise AI & Vector Search (FastAPI, PGVector, Celery, RAG)\n✔ Distributed Systems & Double-Entry Accounting Ledgers\n✔ Full-Stack Development (React 19, Next.js, Node.js, TypeScript)\n✔ High Algorithmic Competence (1800+ Problems Solved)\n✔ SDE Intern @ Razorpay (Production Payment Systems)\n\nSTATUS: OPEN TO HIGH-IMPACT SOFTWARE ENGINEERING OPPORTUNITIES\n\nNext steps:\n  ✉ Email  : ${profileData.email}\n  🔗 LinkedIn: ${profileData.links.linkedin}\n  📄 Resume : /resume`,
     };
   }
 

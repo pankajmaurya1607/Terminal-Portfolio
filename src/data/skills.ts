@@ -6,30 +6,58 @@ export interface SkillCategory {
 export const skillsData: SkillCategory[] = [
   {
     title: "Programming Languages",
-    skills: ["C", "C++", "JavaScript", "TypeScript"],
-  },
-  {
-    title: "Frontend Engineering",
-    skills: ["React.js", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Responsive Design"],
+    skills: ["C", "C++", "Go", "Python", "JavaScript", "TypeScript"],
   },
   {
     title: "Backend & Systems",
-    skills: ["Node.js", "Express.js", "Apache Kafka", "Socket.IO", "REST APIs", "Microservices"],
+    skills: [
+      "Go (Microservices)",
+      "FastAPI (Python)",
+      "Node.js",
+      "Express.js",
+      "Apache Kafka",
+      "Redis (Caching & Rate Limiting)",
+      "Celery (Worker Queues)",
+      "Socket.IO",
+      "REST APIs",
+      "Event-Driven Architecture",
+    ],
   },
   {
-    title: "Database & Storage",
-    skills: ["MongoDB", "Appwrite", "Mongoose", "Data Modeling"],
+    title: "Database & Vector Storage",
+    skills: [
+      "PostgreSQL 16",
+      "PGVector (HNSW Vector Indexing)",
+      "Redis 7",
+      "MongoDB",
+      "Double-Entry Ledgers",
+      "Database Migrations (Alembic/Go-Migrate)",
+    ],
+  },
+  {
+    title: "Enterprise AI & RAG",
+    skills: [
+      "Retrieval-Augmented Generation (RAG)",
+      "Semantic Cosine Vector Search",
+      "FastEmbed (Local ONNX BGE)",
+      "Google Gemini API",
+      "Role-Based Access Control (RBAC)",
+    ],
+  },
+  {
+    title: "Frontend Engineering",
+    skills: ["React 19", "Next.js (App Router)", "Tailwind CSS", "TypeScript", "Responsive Design"],
   },
   {
     title: "Developer Tools & Platforms",
-    skills: ["Git", "GitHub", "VS Code", "Postman", "Linux/Unix", "Docker"],
+    skills: ["Git", "GitHub", "Docker", "Docker Compose", "Nginx", "Linux/Unix", "Postman", "VS Code"],
   },
   {
     title: "Core Computer Science",
     skills: [
       "Data Structures & Algorithms",
-      "System Design",
-      "Distributed Systems",
+      "System Design & Distributed Architectures",
+      "Idempotency & Fault Tolerance",
       "Object-Oriented Programming (OOP)",
       "Operating Systems",
       "Computer Networks",
